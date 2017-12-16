@@ -18,12 +18,18 @@ function findOdd(A) {
     var count = {};
 
     A_sort.forEach(function(i) {
+        // console.log(count[i]);
         count[i] = (count[i] || 0) + 1;
+        console.log(count[i]);
     });
 
-/*  Note on the above code - creates the associative array object 'count' that will have a key-value pair for each unique element in the array, where the key is the unique element value and the value is the count. Then iterating over the array and for each value either increments the value or creates the key value pair (the value of the non-existent key evaluates to undefined so the || or operator takes a zero instead and adds the 1)*/
+/*  Note on the above code - creates the associative array object 'count' that will have a key-value pair for each unique element in the array, where the key is the unique element, and the value is the no of times (count) it appears. Then iterating over the array, for each value I am either incrementing the value or creating the key value pair (the value of the non-existent key evaluates to undefined so the || 'or' operator takes a zero instead, and adds the 1).
+That is, for the first occurance of a key (which is an element of the passed-in array), count[i] is set to (0 + 1) i.e. 1 - then for the second occurance of the same element the count[i] is set to 2 and so on..
+Note, from official doc, forEach() executes the provided callback once for each element present in the array in ascending order. forEach() executes the callback function once for each array element; unlike map() or reduce() it always returns the value undefined
 
-    // console.log(count);
+*/
+
+    console.log(count);
 
     for (var key in count) {
         if (count.hasOwnProperty(key)) {
@@ -37,4 +43,20 @@ function findOdd(A) {
 }
 
 // In the above, I am using Number() function to convert the keys to number, otherwise codewars tests was failing.
-console.log(findOdd([1, 1, 9, 2]));
+console.log(findOdd([1, 1, 9, 2, 9, 9]));
+
+
+// Alternative solutions looking at other's code
+
+// 1> The best, most efficient solution
+
+// const findOdd = (xs) => (xs).reduce((a, b) => a ^ b);
+
+/*Explanation -
+The Bitwise XOR operator ("^") cancels out (i.e. results in 0) every number once it occurs twice. So, e.g. when a number occurs once, its not cancled, but if it occurs twice, it get cancelled-out. Then if it occurs 3 times, the third time its does not get cancelled but on 4th time occurance, it gets cancelled. And the process continues - leaning the final odd number occureance.
+
+Issue with this solution - When passing an array [1, 2] it gives me 3. But output expected is undefined.
+
+https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators#Bitwise_XOR
+
+*/
