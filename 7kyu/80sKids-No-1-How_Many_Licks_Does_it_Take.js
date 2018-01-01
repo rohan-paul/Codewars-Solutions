@@ -21,12 +21,12 @@ Should return:
 First make an array only with the keys, so I can access those keys.
 Then with reduce() add up the average value of 252 with the values of the keys. */
 
+// My solution
 function totalLicks(env) {
   var keys = Object.keys(env);
   var totalLicks = keys.reduce((a, b) => a + env[b], 252) // Here, env[b] will be each of the values from the key-value  pair from "env". And the initialValue of reduce() is the number 252.
 
-  /* Quick note on sort() function.
-http://www.javascriptkit.com/javatutors/arraysort.shtml */
+   // Quick note on sort() function - http://www.javascriptkit.com/javatutors/arraysort.shtml
 
   let toughChallenge = '';
   // I need to sort the object in descending order of its values. That is in the sort() function, I have to supply the compareFuction in such a way, that compareFunction(a, b) => b - a  - returns greater than 0. That is, the "b" element > more than a. And thereby, while comparing and sorring, each pair of elements in the "key" array the "b" element (being the bigger one) is placed at a lower index than a.
@@ -38,4 +38,28 @@ http://www.javascriptkit.com/javatutors/arraysort.shtml */
   return `It took ${totalLicks} licks to get to the tootsie roll center of a tootsie pop.${toughChallenge}`
 }
 
-console.log(totalLicks({"freezing temps": 10, "clear skies": -2}));
+// console.log(totalLicks({"freezing temps": 10, "clear skies": -2}));
+
+// Best Practice solution
+const totalLicksBestPractice = (env) => {
+  var licks = 252
+  let challenge
+
+  for (const effect in env) {
+    if ((env[effect] > 0) && (!challenge || env[effect] > env[challenge])) {
+        challenge = effect
+      }
+    licks += env[effect]
+  }
+  return `It took${licks} licks to get to the tootsie roll center of a tootsie pop.` +
+    (challenge ? ` The toughest challenge was ${challenge}. ` : "")
+}
+
+// Performance testing between my code and the best practice codewars. And the best practice runs a lot faster
+console.time("My solution");
+totalLicks({"freezing temps": 10, "clear skies": -2})
+console.timeEnd("My solution");
+
+console.time("Best Practice solution");
+totalLicksBestPractice({"freezing temps": 10, "clear skies": -2})
+console.timeEnd("Best Practice solution");
