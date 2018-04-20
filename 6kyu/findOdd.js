@@ -24,7 +24,7 @@ function findOdd(A) {
         console.log(count[i]);
     });
 
-/*  Note on the above code - creates the associative array object 'count' that will have a key-value pair for each unique element in the array, where the key is the unique element, and the value is the no of times (count) it appears. Then iterating over the array, for each value I am either incrementing the value or creating the key value pair (the value of the non-existent key evaluates to undefined so the || 'or' operator takes a zero instead, and adds the 1).
+/*  Note on the above code - creates the associative array object 'count' that will have a key-value pair for each unique element in the array, where the key is the unique element, and the value is the no of times (count) it appears. Then iterating over the array, for each element in the array, I am either incrementing the value or creating the key value pair (the value of the non-existent key evaluates to "undefined" so the || 'or' operator takes a zero instead, and adds the 1).
 That is, for the first occurance of a key (which is an element of the passed-in array), count[i] is set to (0 + 1) i.e. 1 - then for the second occurance of the same element the count[i] is set to 2 and so on..
 Note, from official doc, forEach() executes the provided callback once for each element present in the array in ascending order. forEach() executes the callback function once for each array element; unlike map() or reduce() it always returns the value undefined
 
