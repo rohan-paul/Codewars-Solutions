@@ -86,3 +86,20 @@ printerError5 = s => {
 
 console.log(printerError5("aaaxbbbbyyhwawiwjjjwwm"));  // => 8/22
 console.log(printerError5("aaabbbbhaijjjm"));  // => 0/14
+
+
+
+// SOLUTION-6 - EXAMPLES WHERE reduce() method is applied to a string, without converting it to an array with split() first
+
+printerError6 = s => {
+    return Array.prototype.reduce.call(s, (errors, currentLetter) => {
+        if (!currentLetter.match(/[a-m]/)) {
+            errors++
+        }
+        return errors;
+    }, 0) + '/' + s.length
+
+}
+
+console.log(printerError6("aaaxbbbbyyhwawiwjjjwwm"));  // => 8/22
+console.log(printerError6("aaabbbbhaijjjm"));  // => 0/14
