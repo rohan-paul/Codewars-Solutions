@@ -54,10 +54,8 @@ printErrors2 = s => {
 console.log(printErrors2("aaaxbbbbyyhwawiwjjjwwm"));  // => 8/22
 console.log(printErrors2("aaabbbbhaijjjm"));  // => 0/14
 
-// SOLUTION-2 - BUT THIS SOLUTION WILL THROW ERROR (Cannot read property 'length' of null) - FOR THE CASE WHEN THERE IS NO LETTERS BEYOND a-m - Because match() function will return null in that case.
-function printerError3(s) {
-    return `${s.match(/[^a-m]/g).length}/${s.length}`;
-  }
+// SOLUTION-2 - THIS SOLUTION WILL THROW ERROR (Cannot read property 'length' of null) - FOR THE CASE WHEN THERE IS NO LETTERS BEYOND a-m - Because match() function will return null in that case. So to avoid that, including the empty array so in case of null from the first condition, the function will return a 0
+printerError3 = s => `${(s.match(/[^a-m]/g) || []).length}/${s.length}`;
 
 
 console.log(printerError3("aaaxbbbbyyhwawiwjjjwwm"));  // => 8/22
@@ -103,3 +101,28 @@ printerError6 = s => {
 
 console.log(printerError6("aaaxbbbbyyhwawiwjjjwwm"));  // => 8/22
 console.log(printerError6("aaabbbbhaijjjm"));  // => 0/14
+
+// SOLUTION-7 - replace all valid letters with empty space and then find the length of the rest of the string
+
+printerError7 = s => `${s.replace(/[a-m]/ig, "").length}/${s.length}`
+
+
+console.log(printerError7("aaaxbbbbyyhwawiwjjjwwm"));  // => 8/22
+console.log(printerError7("aaabbbbhaijjjm"));  // => 0/14
+
+
+// SOLUTION-8 - Without including the empty array condition the function would return null for the fist condition, when there's no match of invalid letters in the string.
+
+printerError8 = s => `${(s.match(/[n-z]/ig) || []).length}/${s.length}`
+
+
+console.log(printerError8("aaaxbbbbyyhwawiwjjjwwm"));  // => 8/22
+console.log(printerError8("aaabbbbhaijjjm"));  // => 0/14
+
+// SOLUTION-8
+printerError9 = s => {
+    let error = Array.from(s).filter(i => i > 'm')
+    return error.length + '/' + s.length
+}
+console.log(printerError9("aaaxbbbbyyhwawiwjjjwwm"));  // => 8/22
+console.log(printerError9("aaabbbbhaijjjm"));  // => 0/14
