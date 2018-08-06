@@ -37,9 +37,9 @@ printErrors1 = s => {
 }
 
 console.log(printErrors1("aaaxbbbbyyhwawiwjjjwwm"));  // => 8/22
-console.log(printErrors1("aaabbbbhaijjjm"));  // => 8/22
+console.log(printErrors1("aaabbbbhaijjjm"));  // => 0/14
 
-// SOLUTION-1
+// SOLUTION-2
 printErrors2 = s => {
 	let errors = 0;
 	for (let i = 0; i < s.length; i++) {
@@ -52,4 +52,37 @@ printErrors2 = s => {
 }
 
 console.log(printErrors2("aaaxbbbbyyhwawiwjjjwwm"));  // => 8/22
-console.log(printErrors2("aaabbbbhaijjjm"));  // => 8/22
+console.log(printErrors2("aaabbbbhaijjjm"));  // => 0/14
+
+// SOLUTION-2 - BUT THIS SOLUTION WILL THROW ERROR (Cannot read property 'length' of null) - FOR THE CASE WHEN THERE IS NO LETTERS BEYOND a-m - Because match() function will return null in that case.
+function printerError3(s) {
+    return `${s.match(/[^a-m]/g).length}/${s.length}`;
+  }
+
+
+console.log(printerError3("aaaxbbbbyyhwawiwjjjwwm"));  // => 8/22
+// console.log(printerError3("aaabbbbhaijjjm"));  // => Cannot read property 'length' of null
+
+// SOLUTION-4
+printerError4 = s => {
+    let goods = s.match(/[a-m]/g)
+    return `${s.length - goods.length}/${s.length}`
+}
+
+console.log(printerError4("aaaxbbbbyyhwawiwjjjwwm"));  // => 8/22
+console.log(printerError4("aaabbbbhaijjjm"));  // => 0/14
+
+
+// SOLUTION-5
+printerError5 = s => {
+    return s.split('').reduce((errors, currentLetter) => {
+        if (currentLetter < 'a' || currentLetter > 'm') {
+            errors++
+        }
+        return errors
+    }, 0) + '/' + s.length
+
+}
+
+console.log(printerError5("aaaxbbbbyyhwawiwjjjwwm"));  // => 8/22
+console.log(printerError5("aaabbbbhaijjjm"));  // => 0/14
