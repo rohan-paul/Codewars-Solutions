@@ -1,6 +1,6 @@
 ''' https://www.codewars.com/kata/522551eee9abb932420004a0/train/python
 
-Problem Statement - I love Fibonacci numbers in general, but I must admit I love some more than others.
+Codewar-Problem Statement - I love Fibonacci numbers in general, but I must admit I love some more than others.
 
 I would like for you to write me a function that when given a number (n) returns the n-th number in the Fibonacci Sequence.
 
@@ -32,20 +32,26 @@ Here is a longer list:
 
 
 '''
+#Alternative-1
+# def nth_fib(n):
 
+#   temp_fib = [0, 1]
+
+#   if n < 3:
+#     return temp_fib[n - 1]
+
+#   for _ in range(n - 2):
+#     temp_fib[0], temp_fib[1] = temp_fib[1], sum(temp_fib)
+
+#   return temp_fib[1]
+
+#Alternative-1 - SIMPLEST AND BEST
 def nth_fib(n):
+  a, b = 0, 1
+  for i in range(n-1):
+    a, b = b, a+b
 
-  temp_fib = [0, 1]
-
-  if n < 3:
-    return temp_fib[n - 1]
-
-  for _ in range(n - 2):
-    temp_fib[0], temp_fib[1] = temp_fib[1], sum(temp_fib)
-
-  return temp_fib[1]
-
-
+  return a
 
 
 print(nth_fib(4))
